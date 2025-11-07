@@ -1,0 +1,25 @@
+{
+  "name": "Birth Certificate",
+  "state": "Rajasthan",
+  "fields": [
+      {"name": "child_name", "label": "Child's Full Name", "required": true, "type": "text"},
+      {"name": "father_name", "label": "Father's Name", "required": true, "type": "text"},
+      {"name": "mother_name", "label": "Mother's Name", "required": true, "type": "text"},
+      {"name": "date_of_birth", "label": "Date of Birth", "required": true, "type": "date"},
+      {"name": "place_of_birth", "label": "Place of Birth", "required": true, "type": "text"},
+      {"name": "gender", "label": "Gender", "required": true, "type": "select", "options": ["Male", "Female", "Other"]},
+      {"name": "address", "label": "Permanent Address", "required": true, "type": "textarea"},
+      {"name": "registration_number", "label": "Registration Number", "required": false, "type": "text"}
+  ],
+  "questions": {
+      "child_name": "Please provide the child's full name:",
+      "father_name": "Please provide the father's name:",
+      "mother_name": "Please provide the mother's name:",
+      "date_of_birth": "Please provide the date of birth (DD-MM-YYYY):",
+      "place_of_birth": "Please provide the place of birth:",
+      "gender": "Please select gender (Male/Female/Other):",
+      "address": "Please provide the permanent address:",
+      "registration_number": "Please provide registration number (if any):"
+  }
+}
+

@@ -1,0 +1,27 @@
+{
+  "name": "Marriage Certificate Application",
+  "state": "Rajasthan",
+  "fields": [
+      {"name": "groom_name", "label": "Groom's Full Name", "required": true, "type": "text"},
+      {"name": "bride_name", "label": "Bride's Full Name", "required": true, "type": "text"},
+      {"name": "marriage_date", "label": "Marriage Date", "required": true, "type": "date"},
+      {"name": "marriage_place", "label": "Place of Marriage", "required": true, "type": "text"},
+      {"name": "groom_father_name", "label": "Groom's Father Name", "required": true, "type": "text"},
+      {"name": "bride_father_name", "label": "Bride's Father Name", "required": true, "type": "text"},
+      {"name": "address", "label": "Address", "required": true, "type": "textarea"},
+      {"name": "witness1_name", "label": "Witness 1 Name", "required": false, "type": "text"},
+      {"name": "witness2_name", "label": "Witness 2 Name", "required": false, "type": "text"}
+  ],
+  "questions": {
+      "groom_name": "Please provide the groom's full name:",
+      "bride_name": "Please provide the bride's full name:",
+      "marriage_date": "Please provide the marriage date (DD-MM-YYYY):",
+      "marriage_place": "Please provide the place of marriage:",
+      "groom_father_name": "Please provide the groom's father name:",
+      "bride_father_name": "Please provide the bride's father name:",
+      "address": "Please provide the address:",
+      "witness1_name": "Please provide witness 1 name (optional):",
+      "witness2_name": "Please provide witness 2 name (optional):"
+  }
+}
+

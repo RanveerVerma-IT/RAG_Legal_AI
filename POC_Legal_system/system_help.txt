@@ -1,0 +1,516 @@
+
+# system_help.txt
+
+Execute Git commands: Use commands like git init, git clone, git add, git commit, git push, etc., to manage your repositories.
+Run standard Unix/Linux commands: Access common commands for file system navigation and manipulation, such as ls (list directory contents), cd (change directory), mkdir (make directory), rm (remove files/directories), cp (copy files/directories), and mv (move files/directories).
+
+
+for copy & Paste in Git bash: ctrl + Shift + C/V
+
+
+Note: Use setup_poc.sh   if run_poc.sh doesn't work...
+
+
+Checking & upgrade new pip release...
+python.exe -m pip install --upgrade pip
+
+
+# Run these exact commands in Git Bash:
+cd "/c/my_ds_database/POC_RAG_LEGAL_SYSTEM"
+source legal_poc_env/Scripts/activate
+python -m streamlit run main.py
+
+
+
+# Method 1: Hot Reload (Fastest) 
+1. Streamlit has auto-reload functionality. Just save your changes to main.py and the browser will automatically refresh:
+2. Keep Git Bash and browser open
+3. Edit main.py in your code editor
+4. Save the file (Ctrl+S)
+5. Streamlit automatically detects changes and reloads in 2-3 seconds
+6. No need to restart anything!
+
+
+# Error: 1. bash: streamlit: command not found
+
+
+Solution 1: Activate Virtual Environment Properly 
+
+# Make sure you're in your project directory
+cd /c/your/project/path
+
+# Create virtual environment
+python -m venv legal_poc_env
+
+# Activate - try these different methods:
+
+# Method 1: Git Bash standard
+source legal_poc_env/Scripts/activate
+
+# Method 2: If above doesn't work
+. legal_poc_env/Scripts/activate
+
+# Method 3: Direct activation
+legal_poc_env/Scripts/activate
+
+# Method 4: Use the Python executable directly
+legal_poc_env/Scripts/python -m streamlit run main.py 
+
+
+
+
+
+
+
+Solution 2: Install Streamlit in the Activated Environment
+
+# After activating the environment, install packages:
+pip install --upgrade pip
+pip install streamlit pandas numpy langchain chromadb sentence-transformers
+
+# Verify installation
+pip list | grep streamlit
+
+# Now run
+streamlit run main.py
+
+
+
+
+
+
+Solution 3: If Virtual Environment Still Doesn't Work
+
+# Install globally (not recommended but works for POC)
+pip install streamlit pandas numpy
+
+# Run directly
+streamlit run main.py
+
+# Or use python module syntax
+python -m streamlit run main.py
+
+
+
+
+
+
+
+Solution 4: Complete Step-by-Step Script
+
+
+#!/bin/bash
+# setup_poc.sh
+
+echo "=== Legal Assistant POC Setup ==="
+
+# Check if Python is installed
+if ! command -v python &> /dev/null; then
+    echo "❌ Python not found. Please install Python 3.8+ first."
+    exit 1
+fi
+
+echo "✅ Python found: $(python --version)"
+
+# Create virtual environment
+echo "Creating virtual environment..."
+python -m venv legal_poc_env
+
+# Activate environment
+echo "Activating virtual environment..."
+source legal_poc_env/Scripts/activate
+
+# Upgrade pip
+echo "Upgrading pip..."
+pip install --upgrade pip
+
+# Install requirements
+echo "Installing dependencies..."
+pip install streamlit pandas numpy langchain chromadb sentence-transformers
+
+# Create directories
+echo "Creating necessary directories..."
+mkdir -p data/documents
+mkdir -p data/vector_db
+
+echo ""
+echo "✅ Setup completed successfully!"
+echo ""
+echo "To run the POC:"
+echo "1. source legal_poc_env/Scripts/activate"
+echo "2. streamlit run main.py"
+echo ""
+echo "Or run directly: legal_poc_env/Scripts/python -m streamlit run main.py"
+
+
+
+
+
+
+Run it in the bash:
+
+chmod +x setup_poc.sh
+./setup_poc.sh
+
+
+
+
+
+
+Solution 5: Direct Run Without Virtual Environment
+
+# Install packages globally
+pip install streamlit pandas numpy
+
+# Create a simplified requirements.txt
+echo "streamlit>=1.28.0
+pandas>=2.0.3
+numpy>=1.24.3" > requirements_simple.txt
+
+# Install
+pip install -r requirements_simple.txt
+
+# Run the POC
+streamlit run main.py
+
+
+
+
+
+
+Solution 6: Debugging Steps
+
+# Check Python path
+which python
+
+# Check pip
+which pip
+
+# Check if packages are installed
+pip list | grep streamlit
+
+# Check virtual environment activation
+echo $VIRTUAL_ENV
+
+# Try running with full path
+/c/Users/YourUsername/AppData/Local/Programs/Python/Python311/python -m streamlit run main.py 
+
+
+
+
+
+
+
+Quick Fix - Use This Simplified Main File First
+
+# test_app.py
+import streamlit as st
+
+st.title("🚀 Legal Assistant POC - Test")
+st.success("If you can see this, Streamlit is working!")
+st.write("Now you can run the full application.")
+
+if st.button("Click to test"):
+    st.balloons()
+    st.write("🎉 Everything is working!")
+	
+	
+
+
+	
+	
+Test with:
+
+streamlit run test_app.py
+
+
+
+
+Most Likely Solution:
+The virtual environment isn't activating properly. Try this sequence:	
+
+# Clear any existing environment
+deactivate 2>/dev/null || true
+
+# Create fresh environment
+python -m venv legal_poc_env
+
+# Activate using direct sourcing
+source legal_poc_env/Scripts/activate
+
+# You should see (legal_poc_env) in your prompt now
+# Install streamlit
+pip install streamlit
+
+# Run
+streamlit run main.py
+
+
+
+
+
+If you're still having issues, skip the virtual environment for the POC demonstration and install globally: in the bash
+
+pip install streamlit pandas numpy
+streamlit run main.py
+
+
+
+
+
+
+
+# 2. ModuleNotFoundError: No module named 'fpdf'
+	
+Solution 1: Install fpdf and Run
+
+# Make sure you're in your project directory
+cd "/c/my_ds_database/POC_RAG_LEGAL_SYSTEM"
+
+# Activate virtual environment
+source legal_poc_env/Scripts/activate
+
+# Install fpdf
+pip install fpdf
+
+# Now run the application
+python -m streamlit run main.py
+
+
+
+
+
+Solution 2: Complete Reinstall with All Dependencies
+
+# Remove the broken environment
+deactivate 2>/dev/null || true
+rm -rf legal_poc_env
+
+# Create fresh environment
+python -m venv legal_poc_env
+
+# Activate
+source legal_poc_env/Scripts/activate
+
+# Install all required packages
+pip install --upgrade pip
+pip install streamlit pandas numpy fpdf langchain chromadb sentence-transformers
+
+# Run
+python -m streamlit run main.py
+
+
+
+
+
+Solution 3: Use This Fixed Installation Script
+
+#!/bin/bash
+# install_and_run.sh
+
+echo "=== Installing and Running Legal Assistant POC ==="
+
+# Remove existing environment if any
+rm -rf legal_poc_env
+
+# Create new virtual environment
+python -m venv legal_poc_env
+
+# Activate
+source legal_poc_env/Scripts/activate
+
+# Upgrade pip
+pip install --upgrade pip
+
+# Install all packages with specific versions for compatibility
+pip install streamlit==1.28.0
+pip install pandas==2.0.3
+pip install numpy==1.24.3
+pip install fpdf==1.7.2
+pip install langchain==0.0.346
+pip install chromadb==0.4.15
+pip install sentence-transformers==2.2.2
+
+# Create directories
+mkdir -p data/documents
+mkdir -p data/vector_db
+
+echo "✅ All packages installed successfully!"
+echo "🚀 Starting Legal Assistant POC..."
+python -m streamlit run main.py
+
+
+
+Make it executable and run:
+
+chmod +x install_and_run.sh
+./install_and_run.sh
+
+
+
+
+
+Solution 4: Quick Fix - Install Missing Package Only
+
+# In Git Bash
+cd "/c/my_ds_database/POC_RAG_LEGAL_SYSTEM"
+source legal_poc_env/Scripts/activate
+pip install fpdf
+python -m streamlit run main.py
+
+
+
+
+
+Solution 5: Global Installation (Quickest for Demo)
+
+# Skip virtual environment and install globally
+pip install streamlit pandas numpy fpdf
+python -m streamlit run main.py
+
+
+
+
+Solution 6: Verify Installation Step by Step
+
+# Step 1: Check current directory
+pwd
+
+# Step 2: Activate environment
+source legal_poc_env/Scripts/activate
+
+# Step 3: Check if fpdf is installed
+pip list | grep fpdf
+
+# Step 4: If not found, install it
+pip install fpdf
+
+# Step 5: Verify installation
+pip list | grep fpdf
+
+# Step 6: Run the application
+python -m streamlit run main.py
+
+
+
+Solution 7: Create a Requirements File and Install
+
+streamlit==1.28.0
+pandas==2.0.3
+numpy==1.24.3
+fpdf==1.7.2
+langchain==0.0.346
+chromadb==0.4.15
+sentence-transformers==2.2.2
+
+
+Then run:
+
+source legal_poc_env/Scripts/activate
+pip install -r requirements.txt
+python -m streamlit run main.py
+
+
+
+
+Solution 8: Alternative PDF Generation (if fpdf still has issues)
+
+# Temporary PDF generation alternative
+import base64
+
+class SimplePDFGenerator:
+    @staticmethod
+    def create_text_based_pdf(document_content, doc_type, details):
+        # Create a simple text-based document that can be opened as PDF
+        # by most modern browsers and text editors
+        pdf_content = f"""
+        {doc_type}
+        {'=' * 50}
+        
+        {document_content}
+        
+        {'=' * 50}
+        Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M')}
+        Legal Assistant POC
+        """
+        return pdf_content
+    
+    @staticmethod
+    def get_pdf_download_button(document_content, doc_type, details):
+        pdf_content = SimplePDFGenerator.create_text_based_pdf(document_content, doc_type, details)
+        
+        st.download_button(
+            label="📥 Download as PDF",
+            data=pdf_content,
+            file_name=f"{doc_type.replace(' ', '_')}.pdf",
+            mime="application/octet-stream",
+            use_container_width=True
+        )
+
+# Then in your document drafting section, replace:
+# PDFGenerator.get_pdf_download_button(pdf, f"{doc_type.replace(' ', '_')}.pdf")
+# with:
+# SimplePDFGenerator.get_pdf_download_button(document_content, doc_type, details)
+
+
+
+Most Likely Solution That Will Work:
+
+# Run these exact commands in Git Bash:
+cd "/c/my_ds_database/POC_RAG_LEGAL_SYSTEM"
+source legal_poc_env/Scripts/activate
+pip install fpdf
+python -m streamlit run main.py
+
+
+
+If You're Still Stuck, Use This Emergency Script:
+
+# emergency_run.py - Minimal version without fpdf
+import streamlit as st
+import pandas as pd
+from datetime import datetime
+
+st.set_page_config(page_title="Legal Assistant POC", layout="wide")
+
+st.title("⚖️ Legal Assistant POC")
+st.success("Basic version running without PDF generation")
+
+# Simple document generation without PDF
+doc_type = st.selectbox("Select Document Type", ["Affidavit", "Rental Agreement"])
+content = f"Sample {doc_type} content would go here..."
+
+st.text_area("Generated Document", content, height=200)
+
+# Simple download as text
+st.download_button(
+    "📥 Download as TXT",
+    content,
+    file_name=f"{doc_type}.txt"
+)
+
+st.info("PDF generation will be available after installing fpdf package")
+
+
+
+Run it:
+
+python -m streamlit run emergency_run.py
+
+
+The quickest fix is Solution 5 (Global Installation) or Solution 4 (Install missing package only).
+
+Try this first:
+
+pip install fpdf
+python -m streamlit run main.py
+
+
+
+
+
+Installation Command: googlesearch
+
+pip install googlesearch-python requests
+python -m streamlit run main.py
+
