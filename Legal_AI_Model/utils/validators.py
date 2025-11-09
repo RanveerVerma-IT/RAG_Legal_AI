@@ -20,19 +20,22 @@ class FieldValidator:
             (is_valid, error_message)
         """
         if not value or not value.strip():
-            return False, "Name cannot be empty"
+            return False, "❌ Name cannot be empty"
         
         value = value.strip()
         
         if len(value) < 2:
-            return False, "Name must be at least 2 characters"
+            return False, ("❌ Name is too short\n\n"
+                          "Please enter the full name (minimum 2 characters)")
         
         if len(value) > 100:
-            return False, "Name is too long (max 100 characters)"
+            return False, "❌ Name is too long (maximum 100 characters)"
         
         # Check for valid characters (letters, spaces, hyphens, apostrophes)
         if not re.match(r"^[A-Za-z\s\-'\.]+$", value):
-            return False, "Name contains invalid characters"
+            return False, ("❌ Name contains invalid characters\n\n"
+                          "Only letters, spaces, hyphens, and apostrophes are allowed\n"
+                          "Example: Rajesh Kumar, Mary O'Brien, Jean-Pierre")
         
         return True, None
     
@@ -40,13 +43,15 @@ class FieldValidator:
     def validate_email(value: str) -> Tuple[bool, Optional[str]]:
         """Validate email address"""
         if not value or not value.strip():
-            return False, "Email cannot be empty"
+            return False, "❌ Email cannot be empty"
         
         value = value.strip()
         
         email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         if not re.match(email_pattern, value):
-            return False, "Invalid email format"
+            return False, ("❌ Invalid email format\n\n"
+                          "✅ Correct format: username@domain.com\n"
+                          "Examples: john.doe@email.com, user123@gmail.com")
         
         return True, None
     
@@ -54,7 +59,7 @@ class FieldValidator:
     def validate_phone(value: str) -> Tuple[bool, Optional[str]]:
         """Validate phone number"""
         if not value or not value.strip():
-            return False, "Phone number cannot be empty"
+            return False, "❌ Phone number cannot be empty"
         
         value = value.strip()
         
@@ -67,13 +72,15 @@ class FieldValidator:
         elif re.match(r'^[6-9]\d{9}$', cleaned):
             return True, None
         else:
-            return False, "Invalid phone number format (must be 10 digits starting with 6-9)"
+            return False, ("❌ Invalid phone number format\n\n"
+                          "✅ Correct format: 10 digits starting with 6-9\n"
+                          "Examples: 9876543210 or +919876543210")
     
     @staticmethod
     def validate_date(value: str) -> Tuple[bool, Optional[str]]:
         """Validate date field"""
         if not value or not value.strip():
-            return False, "Date cannot be empty"
+            return False, "❌ Date cannot be empty"
         
         value = value.strip()
         
@@ -82,29 +89,34 @@ class FieldValidator:
             
             # Check if date is not in future (for birth dates)
             if parsed_date > datetime.now():
-                return False, "Date cannot be in the future"
+                return False, ("❌ Date cannot be in the future\n\n"
+                              "Please enter a valid past date")
             
             # Check if date is reasonable (not too old)
             if parsed_date.year < 1900:
-                return False, "Date is too old"
+                return False, ("❌ Date is too old\n\n"
+                              "Please enter a date after 1900")
             
             return True, None
         except Exception:
-            return False, "Invalid date format"
+            return False, ("❌ Invalid date format\n\n"
+                          "✅ Correct format: DD-MM-YYYY\n"
+                          "Examples: 15-08-1990, 01-01-2000")
     
     @staticmethod
     def validate_address(value: str) -> Tuple[bool, Optional[str]]:
         """Validate address field"""
         if not value or not value.strip():
-            return False, "Address cannot be empty"
+            return False, "❌ Address cannot be empty"
         
         value = value.strip()
         
         if len(value) < 10:
-            return False, "Address is too short (minimum 10 characters)"
+            return False, ("❌ Address is too short\n\n"
+                          "Please provide a complete address with house number, street, area, city, and PIN code")
         
         if len(value) > 500:
-            return False, "Address is too long (maximum 500 characters)"
+            return False, "❌ Address is too long (maximum 500 characters)"
         
         return True, None
     

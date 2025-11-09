@@ -45,3 +45,12 @@ Thumbs.db
 # Streamlit
 .streamlit/
 
+# Chat history
+chat_history.json
+
+# Learning data
+learning_data.json
+
+# Test outputs
+test_output.*
+
